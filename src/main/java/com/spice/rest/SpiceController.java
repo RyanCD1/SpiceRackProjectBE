@@ -12,9 +12,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spice.data.Spice;
+import com.spice.service.SpiceService;
 
 @RestController
+
 public class SpiceController {
+
+	private SpiceService service;
+
+	public SpiceController(SpiceService service) {
+		super();
+		this.service = service;
+	}
 
 	private List<Spice> spices = new ArrayList<>();
 
