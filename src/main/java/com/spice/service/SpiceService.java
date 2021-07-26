@@ -6,7 +6,7 @@ import com.spice.data.Spice;
 
 public interface SpiceService {
 
-	public void createSpice(Spice spice);
+	public Spice createSpice(Spice spice);
 
 	public List<Spice> getAllSpices();
 
@@ -15,5 +15,7 @@ public interface SpiceService {
 	public Spice replaceSpice(int id, Spice newSpice);
 
 	public String deleteSpice(int id);
+
+	public List<Spice> findByNameIgnoreCase(String name);
 
 }

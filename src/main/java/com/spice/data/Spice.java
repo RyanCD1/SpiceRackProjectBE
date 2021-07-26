@@ -1,11 +1,27 @@
 package com.spice.data;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Spice {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@Column(name = "Name", unique = true)
 	private String name;
 	private String cuisine;
 	private int flavourRating;
 	private int price;
+
+	public Spice() {
+
+	}
 
 	public Spice(String name, String cuisine, int flavourRating, int price) {
 		super();
