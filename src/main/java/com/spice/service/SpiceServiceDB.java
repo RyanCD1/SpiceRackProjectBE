@@ -5,38 +5,56 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.spice.data.Spice;
+import com.spice.data.repos.SpiceRepo;
 
 @Service
 public class SpiceServiceDB implements SpiceService {
 
-	@Override
-	public void createSpice(Spice spice) {
-		// TODO Auto-generated method stub
+	private SpiceRepo repo;
 
-	}
-
-	@Override
-	public List<Spice> getAllSpices() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Spice getSpice(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public SpiceServiceDB(SpiceRepo repo) {
+		super();
+		this.repo = repo;
 	}
 
 	@Override
 	public Spice replaceSpice(int id, Spice newSpice) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Spice found = this.repo.findById(id).get();
+
+		found.setPrice(newSpice.getPrice());
+		found.setName(newSpice.getName());
+
+		Spice updated = this.repo.save(found);
+
+		return updated;
+	}
+
+	@Override
+	public Spice createSpice(Spice spice) {
+		return this.repo.save(spice);
+	}
+
+	@Override
+	public List<Spice> getAllSpices() {
+		return this.repo.findAll();
+	}
+
+	@Override
+	public Spice getSpice(int id) {
+		return this.repo.findById(id).get();
 	}
 
 	@Override
 	public String deleteSpice(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		this.repo.deleteById(id);
+
+		return "Deleted: " + id;
+	}
+
+	@Override
+	public List<Spice> findByNameIgnoreCase(String name) {
+		return this.repo.findByNameIgnoreCase(name);
 	}
 
 }

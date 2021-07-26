@@ -28,32 +28,33 @@ public class SpiceController {
 	private List<Spice> spices = new ArrayList<>();
 
 	@PostMapping("/createSpice")
-	public void createKitten(@RequestBody Spice spice) {
-		System.out.println(spice);
-		this.spices.add(spice);
+	public Spice createSpice(@RequestBody Spice spice) {
+		return this.service.createSpice(spice);
 	}
 
 	@GetMapping("/getAllSpices")
 	public List<Spice> getAllSpices() {
-		return this.spices;
+		return this.service.getAllSpices();
+	}
+
+	@GetMapping("/getByName/{name}")
+	public List<Spice> getByName(@PathVariable String name) {
+		return this.service.findByNameIgnoreCase(name);
 	}
 
 	@GetMapping("/getSpice/{id}")
 	public Spice getSpice(@PathVariable int id) {
-		Spice found = this.spices.get(id);
-		return found;
+		return this.service.getSpice(id);
 	}
 
 	@PutMapping("/replaceSpice/{id}")
 	public Spice replaceSpice(@PathVariable int id, @RequestBody Spice newSpice) {
-		return this.spices.set(id, newSpice);
+		return this.service.replaceSpice(id, newSpice);
 	}
 
 	@DeleteMapping("/deleteSpice/{id}")
 	public String deleteSpice(@PathVariable int id) {
-		this.spices.remove(id);
-
-		return "Deleted Spice at index: " + id;
+		return this.service.deleteSpice(id);
 	}
 
 }
