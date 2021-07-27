@@ -24,11 +24,17 @@ public class SpiceServiceDB implements SpiceService {
 
 		Spice found = this.repo.findById(id).get();
 
+		System.out.println("FOUND: " + found);
+
 		found.setPrice(newSpice.getPrice());
 		found.setName(newSpice.getName());
+		found.setCuisine(newSpice.getCuisine());
+		found.setFlavourRating(newSpice.getFlavourRating());
+
+		System.out.println("FOUND AFTER UPDATE: " + found);
 
 		Spice updated = this.repo.save(found);
-
+		System.out.println("UPDATED: " + updated);
 		return updated;
 	}
 
@@ -51,7 +57,11 @@ public class SpiceServiceDB implements SpiceService {
 	public String deleteSpice(int id) {
 		this.repo.deleteById(id);
 
-		return "Deleted: " + id;
+		if (this.repo.existsById(id)) {
+			return "Not deleted: " + id;
+		} else {
+			return "Deleted: " + id;
+		}
 	}
 
 	@Override
