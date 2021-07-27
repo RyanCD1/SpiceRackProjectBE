@@ -3,6 +3,8 @@ package com.spice.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +30,9 @@ public class SpiceController {
 	private List<Spice> spices = new ArrayList<>();
 
 	@PostMapping("/createSpice")
-	public Spice createSpice(@RequestBody Spice spice) {
-		return this.service.createSpice(spice);
+	public ResponseEntity<Spice> createSpice(@RequestBody Spice spice) {
+		Spice created = this.service.createSpice(spice);
+		return new ResponseEntity<>(created, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/getAllSpices")

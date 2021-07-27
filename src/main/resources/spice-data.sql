@@ -1,5 +1,5 @@
-insert into `Spice` 
-	(`name`, `cuisine`, `flavourRating`, `price`) 
+insert into `spice` 
+	(`price`, `name`, `flavourRating`, `cuisine`) 
 values 
-	('Cinnamon', 'Global', 9, 12);
+	(12, 'Cinnamon', 9, 'Global');
 	
