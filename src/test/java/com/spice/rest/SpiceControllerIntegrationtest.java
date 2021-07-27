@@ -23,6 +23,7 @@ import com.spice.data.Spice;
 @AutoConfigureMockMvc
 @Sql(scripts = { "classpath:spice-schema.sql",
 		"classpath:spice-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+
 public class SpiceControllerIntegrationtest {
 
 	@Autowired
@@ -33,7 +34,7 @@ public class SpiceControllerIntegrationtest {
 
 	@Test
 	void testCreate() throws Exception {
-		Spice testKit = new Spice("Cinnamon", "Global", 9, 12);
+		Spice testKit = new Spice("Bay Leaf", "Global", 9, 12);
 
 		String testKitAsJSON = this.mapper.writeValueAsString(testKit);
 
@@ -44,7 +45,7 @@ public class SpiceControllerIntegrationtest {
 
 		ResultMatcher checkStatus = status().is(201);
 
-		Spice testCreatedKit = new Spice("Cinnamon", "Global", 9, 12);
+		Spice testCreatedKit = new Spice("Bay Leaf", "Global", 9, 12);
 		testCreatedKit.setId(2);
 		String testCreatedKitAsJSON = this.mapper.writeValueAsString(testCreatedKit);
 

@@ -3,8 +3,11 @@ package com.spice.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.spice.data.Spice;
 
+@Service
 public class SpiceServiceList implements SpiceService {
 	private List<Spice> spices = new ArrayList<>();
 
