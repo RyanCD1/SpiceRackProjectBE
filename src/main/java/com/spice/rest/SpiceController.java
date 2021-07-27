@@ -51,13 +51,15 @@ public class SpiceController {
 	}
 
 	@PutMapping("/replaceSpice/{id}")
-	public Spice replaceSpice(@PathVariable int id, @RequestBody Spice newSpice) {
-		return this.service.replaceSpice(id, newSpice);
+	public ResponseEntity<Spice> replaceSpice(@PathVariable int id, @RequestBody Spice newSpice) {
+		Spice body = this.service.replaceSpice(id, newSpice);
+		return new ResponseEntity<Spice>(body, HttpStatus.ACCEPTED);
 	}
 
 	@DeleteMapping("/deleteSpice/{id}")
-	public String deleteSpice(@PathVariable int id) {
-		return this.service.deleteSpice(id);
+	public ResponseEntity<String> deleteSpice(@PathVariable int id) {
+		String body = this.service.deleteSpice(id);
+		return new ResponseEntity<String>(body, HttpStatus.NO_CONTENT);
 	}
 
 }
