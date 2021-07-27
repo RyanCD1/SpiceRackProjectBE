@@ -1,5 +1,6 @@
 package com.spice.rest;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -60,7 +61,7 @@ public class SpiceControllerIntegrationtest {
 	@Test
 	void testUpdate() throws Exception {
 		int id = 1;
-		Spice newSpice = new Spice(id, "Cloves", "Global", 7, 8);
+		Spice newSpice = new Spice(id, "Cloves", "Global", 9, 8);
 		String newSpiceAsJSON = this.mapper.writeValueAsString(newSpice);
 
 		RequestBuilder req = put("/replaceSpice/" + id).contentType(MediaType.APPLICATION_JSON).content(newSpiceAsJSON);
@@ -78,7 +79,7 @@ public class SpiceControllerIntegrationtest {
 
 		ResultMatcher checkStatus = status().isOk();
 
-		Spice testSpice = new Spice(1, "Pepper", "Global", 12, 11);
+		Spice testSpice = new Spice(1, "Cinnamon", "Global", 9, 12);
 
 		String testSpiceAsJSON = this.mapper.writeValueAsString(testSpice);
 
@@ -90,15 +91,26 @@ public class SpiceControllerIntegrationtest {
 
 	@Test
 	void testFindByName() throws Exception {
-		RequestBuilder request = get("/getByName/Cardammon");
+		RequestBuilder request = get("/getByName/Cinnamon");
 
 		ResultMatcher checkStatus = status().isOk();
 
-		List<Spice> testSpices = List.of(new Spice(1, "Cardammon", "Indian", 12, 11));
+		List<Spice> testSpices = List.of(new Spice(1, "Cinnamon", "Global", 9, 12));
 
 		String testSpicesAsJSON = this.mapper.writeValueAsString(testSpices);
 
 		ResultMatcher checkBody = content().json(testSpicesAsJSON);
+
+		this.mockMVC.perform(request).andExpect(checkStatus).andExpect(checkBody);
+	}
+
+	@Test
+	void testDelete() throws Exception {
+
+		RequestBuilder request = delete("/deleteSpice/1");
+
+		ResultMatcher checkStatus = status().is(204);
+		ResultMatcher checkBody = content().string("Deleted: 1");
 
 		this.mockMVC.perform(request).andExpect(checkStatus).andExpect(checkBody);
 	}
