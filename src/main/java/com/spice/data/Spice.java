@@ -18,7 +18,15 @@ public class Spice {
 	private int price;
 
 	public Spice() {
+	}
 
+	public Spice(int id, String name, String cuisine, int flavourRating, int price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.cuisine = cuisine;
+		this.flavourRating = flavourRating;
+		this.price = price;
 	}
 
 	public Spice(String name, String cuisine, int flavourRating, int price) {
