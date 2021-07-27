@@ -1,6 +1,5 @@
 package com.spice.data;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,14 +12,21 @@ public class Spice {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "Name", unique = true)
 	private String name;
 	private String cuisine;
 	private int flavourRating;
 	private int price;
 
 	public Spice() {
+	}
 
+	public Spice(int id, String name, String cuisine, int flavourRating, int price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.cuisine = cuisine;
+		this.flavourRating = flavourRating;
+		this.price = price;
 	}
 
 	public Spice(String name, String cuisine, int flavourRating, int price) {
@@ -61,6 +67,14 @@ public class Spice {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override

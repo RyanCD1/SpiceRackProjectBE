@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import com.spice.rest.SpiceController;
+import com.spice.service.SpiceServiceList;
 
 @SpringBootApplication
 public class SpiceRackApplication {
@@ -14,7 +15,8 @@ public class SpiceRackApplication {
 		SpiceController controller = beanBag.getBean(SpiceController.class);
 		System.out.println(controller);
 
-		SpringApplication.run(SpiceRackApplication.class, args);
+		SpiceServiceList service = beanBag.getBean(SpiceServiceList.class);
+		System.out.println(service);
 	}
 
 }

@@ -2,11 +2,13 @@ package com.spice.service;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.spice.data.Spice;
 import com.spice.data.repos.SpiceRepo;
 
+@Primary
 @Service
 public class SpiceServiceDB implements SpiceService {
 

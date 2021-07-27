@@ -3,6 +3,8 @@ package com.spice.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +30,9 @@ public class SpiceController {
 	private List<Spice> spices = new ArrayList<>();
 
 	@PostMapping("/createSpice")
-	public Spice createSpice(@RequestBody Spice spice) {
-		return this.service.createSpice(spice);
+	public ResponseEntity<Spice> createSpice(@RequestBody Spice spice) {
+		Spice created = this.service.createSpice(spice);
+		return new ResponseEntity<>(created, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/getAllSpices")
@@ -48,13 +51,15 @@ public class SpiceController {
 	}
 
 	@PutMapping("/replaceSpice/{id}")
-	public Spice replaceSpice(@PathVariable int id, @RequestBody Spice newSpice) {
-		return this.service.replaceSpice(id, newSpice);
+	public ResponseEntity<Spice> replaceSpice(@PathVariable int id, @RequestBody Spice newSpice) {
+		Spice body = this.service.replaceSpice(id, newSpice);
+		return new ResponseEntity<Spice>(body, HttpStatus.ACCEPTED);
 	}
 
 	@DeleteMapping("/deleteSpice/{id}")
-	public String deleteSpice(@PathVariable int id) {
-		return this.service.deleteSpice(id);
+	public ResponseEntity<String> deleteSpice(@PathVariable int id) {
+		String body = this.service.deleteSpice(id);
+		return new ResponseEntity<String>(body, HttpStatus.NO_CONTENT);
 	}
 
 }
