@@ -1,5 +1,6 @@
 package com.spice.rest;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -67,6 +68,22 @@ public class SpiceControllerIntegrationtest {
 		ResultMatcher checkBody = content().json(newSpiceAsJSON);
 
 		this.mockMVC.perform(req).andExpect(checkStatus).andExpect(checkBody);
+	}
+
+	@Test
+	void findById() throws Exception {
+		RequestBuilder req = get("/getSpice/1");
+
+		ResultMatcher checkStatus = status().isOk();
+
+		Spice testSpice = new Spice(1, "Pepper", "Global", 12, 11);
+
+		String testSpiceAsJSON = this.mapper.writeValueAsString(testSpice);
+
+		ResultMatcher checkBody = content().json(testSpiceAsJSON);
+
+		this.mockMVC.perform(req).andExpect(checkStatus).andExpect(checkBody);
+
 	}
 
 }
