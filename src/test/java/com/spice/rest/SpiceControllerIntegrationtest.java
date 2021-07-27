@@ -6,6 +6,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -84,6 +86,21 @@ public class SpiceControllerIntegrationtest {
 
 		this.mockMVC.perform(req).andExpect(checkStatus).andExpect(checkBody);
 
+	}
+
+	@Test
+	void testFindByName() throws Exception {
+		RequestBuilder request = get("/getByName/Cardammon");
+
+		ResultMatcher checkStatus = status().isOk();
+
+		List<Spice> testSpices = List.of(new Spice(1, "Cardammon", "Indian", 12, 11));
+
+		String testSpicesAsJSON = this.mapper.writeValueAsString(testSpices);
+
+		ResultMatcher checkBody = content().json(testSpicesAsJSON);
+
+		this.mockMVC.perform(request).andExpect(checkStatus).andExpect(checkBody);
 	}
 
 }
