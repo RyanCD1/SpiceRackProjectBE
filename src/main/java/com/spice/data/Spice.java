@@ -1,5 +1,7 @@
 package com.spice.data;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -81,6 +83,24 @@ public class Spice {
 	public String toString() {
 		return "Spice [name=" + name + ", cuisine=" + cuisine + ", flavourRating=" + flavourRating + ", price=" + price
 				+ "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cuisine, flavourRating, id, name, price);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Spice other = (Spice) obj;
+		return Objects.equals(cuisine, other.cuisine) && flavourRating == other.flavourRating && id == other.id
+				&& Objects.equals(name, other.name) && price == other.price;
 	}
 
 }
