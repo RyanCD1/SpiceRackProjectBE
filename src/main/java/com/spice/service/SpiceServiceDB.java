@@ -2,6 +2,8 @@ package com.spice.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -49,8 +51,10 @@ public class SpiceServiceDB implements SpiceService {
 	}
 
 	@Override
+	@Transactional
 	public Spice getSpice(int id) {
-		return this.repo.findById(id).get();
+		Spice found = this.repo.findById(id).get();
+		return found;
 	}
 
 	@Override
