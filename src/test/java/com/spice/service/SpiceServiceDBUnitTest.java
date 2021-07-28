@@ -55,7 +55,7 @@ public class SpiceServiceDBUnitTest {
 
 		List<Spice> testSpices = List.of(new Spice(1, "Bay Leaf", "Global", 12, 10));
 
-		String search = "jess";
+		String search = "Bay Leaf";
 		Mockito.when(this.repo.findByNameIgnoreCase(search)).thenReturn(testSpices);
 
 		assertThat(this.service.findByNameIgnoreCase(search)).isEqualTo(testSpices);
@@ -101,6 +101,21 @@ public class SpiceServiceDBUnitTest {
 		assertThat(this.service.deleteSpice(id)).isEqualTo("Not deleted: " + id);
 
 		Mockito.verify(this.repo, Mockito.times(1)).existsById(id);
+	}
+
+	void testGetById() {
+
+		int id = 1;
+		Spice testBook = new Spice(id, "Cadammon", "Indian", 11, 12);
+
+		Mockito.when(this.repo.findById(id)).thenReturn(Optional.of(testBook));
+		Mockito.when(this.repo.save(new Spice(id, "Cadammon", "Indian", 11, 12))).thenReturn(testBook);
+
+		Spice actual = this.service.getSpice(id);
+
+		assertThat(actual).isEqualTo(testBook);
+
+		Mockito.verify(this.repo, Mockito.times(1)).getById(id);
 	}
 
 }
